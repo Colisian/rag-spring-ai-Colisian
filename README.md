@@ -339,6 +339,20 @@ List<Document> similarDocuments = vectorStore.similaritySearch(SearchRequest.que
 
 Now if results are not close enough in our vector store, nothing is returned.
 
+### Clearing the DB
+If we need to clear the DB we can do a simple delete using `JdbcTemplate`  
+
+```java
+...
+    private final JdbcTemplate jdbcTemplate;
+    ...
+    public String clearvs() {
+        int deleted = jdbcTemplate.update("DELETE FROM " + PgVectorStore.VECTOR_TABLE_NAME);
+        return "Deleted " + deleted + " rows";
+    }
+...
+```
+
 ### Considerations
 * Different models for LLM and Embeddings?
 * How do we structure data in embeddings?
