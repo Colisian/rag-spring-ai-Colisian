@@ -135,7 +135,7 @@ This should output:
 A vector store is a database or storage system that is optimized for handling vector data. 
 These vector stores are particularly useful in areas such as similarity search, machine learning, and artificial intelligence, where efficient storage, indexing, and retrieval of high-dimensional vectors are crucial.
 
-For our vector store, we are going to use [PostgresDB](https://www.postgresql.org/) database with the [PG Vector Plugin](https://github.com/pgvector/pgvector) that allows ofr efficient storage and retrieval of vector data.
+For our vector store, we are going to use [PostgresDB](https://www.postgresql.org/) database with the [PG Vector Plugin](https://github.com/pgvector/pgvector) that allows for efficient storage and retrieval of vector data.
 
 Dust off your docker! We will use it to quickly set up the database.
 1. Make sure Docker Desktop is running.
