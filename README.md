@@ -115,9 +115,10 @@ public class RAGService {
 ```
 To connect to AWS Bedrock, we first need to log in. 
 Log in (Check for DUO Push):  
-`umd_aws_auth -g it-ee-specialprojects-developers`  
+`umd_aws_auth -g innovation-lab-ragllm`
 Set your default Role (Replace with your login information):  
-`umd_aws_auth -u depstei2 -P it-ee-specialprojects-developers -a 265858620073 -f global-AWSAdminRole-1A44JLEEHM6I7 -p "default"`  
+`umd_aws_auth -u depstei2 -P innovation-lab-ragllm -a 259271463358 -f bedrock-innovation-lab-BedrockUsageRole-20fYsBdHS9FL -p "default"`
+
 
 Now we can rebuild the project and run the application again:
 `mvn package`  
