@@ -67,9 +67,9 @@ Run each of these commands and make sure there are no errors in the output.
 1. Open up a command shell  
 2. Clone the repo https://gitlab.umd.edu/depstei2/rag-spring-ai  
    Go to a directory where you want to download the project and run   
-   `git clone https://gitlab.umd.edu/depstei2/rag-spring-ai.git`
+   `git clone -b skeleton https://gitlab.umd.edu/depstei2/rag-spring-ai.git`
    1. You _may_ need to log in. Look for an authentication screen and select *Password*, then enter your UMD user id and credentials:
-      ![gitlab_oauth.png](docs/gitlab_oauth.png)
+        ![gitlab_oauth.png](docs/gitlab_oauth.png)
 3. Build the project: `mvn package`
 4. Run the project: `java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar`
 5. At the prompt, enter `help` and then `exit`
@@ -86,7 +86,7 @@ Let's add a dependency for AWS Bedrock AI:
 </dependency>
 ```
 Configure the AWS environment, and the embedding client  
-**application.properties**:
+**./src/main/resources/application.properties**:
 ```properties
 spring.ai.bedrock.aws.region=us-east-1
 spring.ai.bedrock.titan.embedding.enabled=true
@@ -117,13 +117,20 @@ public class RAGService {
 ```
 To connect to AWS Bedrock, we first need to log in. 
 Log in (Check for DUO Push):  
-`umd_aws_auth -g it-ee-specialprojects-developers`  
+```
+umd_aws_auth -g innovation-lab-ragllm
+```
 Set your default Role (Replace with your login information):  
-`umd_aws_auth -u depstei2 -P it-ee-specialprojects-developers -a 265858620073 -f global-AWSAdminRole-1A44JLEEHM6I7 -p "default"`  
+```
+umd_aws_auth -u depstei2 -P innovation-lab-ragllm -a 259271463358 -f bedrock-innovation-lab-BedrockUsageRole-20fYsBdHS9FL -p "default"
+```
+
 
 Now we can rebuild the project and run the application again:
-`mvn package`  
-`java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar`
+```
+mvn package
+java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar
+```
 
 At the `shell:>` command, enter `embed "hello world"`. Note the quotes, you need to double quote any text that contains spaces when using the spring shell. 
 
@@ -137,7 +144,7 @@ This should output:
 A vector store is a database or storage system that is optimized for handling vector data. 
 These vector stores are particularly useful in areas such as similarity search, machine learning, and artificial intelligence, where efficient storage, indexing, and retrieval of high-dimensional vectors are crucial.
 
-For our vector store, we are going to use [PostgresDB](https://www.postgresql.org/) database with the [PG Vector Plugin](https://github.com/pgvector/pgvector) that allows ofr efficient storage and retrieval of vector data.
+For our vector store, we are going to use [PostgresDB](https://www.postgresql.org/) database with the [PG Vector Plugin](https://github.com/pgvector/pgvector) that allows for efficient storage and retrieval of vector data.
 
 Dust off your docker! We will use it to quickly set up the database.
 1. Make sure Docker Desktop is running.
@@ -159,7 +166,7 @@ First we need all the postgres dependencies:
 ```
 
 Add these properties to connect to our local database and configure our vector store   
-**application.properties**:
+**./src/main/resources/application.properties**:
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
 spring.datasource.username=postgres
@@ -192,8 +199,10 @@ public class RAGService {
 }
 ```
 We can rebuild the project and run the application again:  
-`mvn package`  
-`java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar`
+```
+mvn package
+java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar
+```
 
 Let's check out the database again. Spring AI has enabled the PGVector plugin and also created a `vector_store` table to store our embeddings.  
 ![postgres_vectorstore.png](docs/postgres_vectorstore.png)  
@@ -258,7 +267,7 @@ Rebuild and run the application. Do some searches using the `search` command e.g
 Connecting to generative chat endpoints is easy with Spring Boot AI.
 
 We need to turn on/configure the chat model we are going to use. Anthropic is a LLM model in [AWS Bedrock](https://aws.amazon.com/bedrock/)    
-**application.properties**  
+**./src/main/resources/application.properties**  
 ```properties
 spring.ai.bedrock.anthropic.chat.enabled=true
 ```
