@@ -125,8 +125,10 @@ umd_aws_auth -u depstei2 -P innovation-lab-ragllm -a 259271463358 -f bedrock-inn
 
 
 Now we can rebuild the project and run the application again:
-`mvn package`  
-`java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar`
+```
+mvn package
+java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar
+```
 
 At the `shell:>` command, enter `embed "hello world"`. Note the quotes, you need to double quote any text that contains spaces when using the spring shell. 
 
@@ -195,8 +197,10 @@ public class RAGService {
 }
 ```
 We can rebuild the project and run the application again:  
-`mvn package`  
-`java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar`
+```
+mvn package
+java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar
+```
 
 Let's check out the database again. Spring AI has enabled the PGVector plugin and also created a `vector_store` table to store our embeddings.  
 ![postgres_vectorstore.png](docs/postgres_vectorstore.png)  
