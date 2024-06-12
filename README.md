@@ -84,7 +84,7 @@ Let's add a dependency for AWS Bedrock AI:
 </dependency>
 ```
 Configure the AWS environment, and the embedding client  
-**application.properties**:
+**./src/main/resources/application.properties**:
 ```properties
 spring.ai.bedrock.aws.region=us-east-1
 spring.ai.bedrock.titan.embedding.enabled=true
@@ -158,7 +158,7 @@ First we need all the postgres dependencies:
 ```
 
 Add these properties to connect to our local database and configure our vector store   
-**application.properties**:
+**./src/main/resources/application.properties**:
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
 spring.datasource.username=postgres
@@ -257,7 +257,7 @@ Rebuild and run the application. Do some searches using the `search` command e.g
 Connecting to generative chat endpoints is easy with Spring Boot AI.
 
 We need to turn on/configure the chat model we are going to use. Anthropic is a LLM model in [AWS Bedrock](https://aws.amazon.com/bedrock/)    
-**application.properties**  
+**./src/main/resources/application.properties**  
 ```properties
 spring.ai.bedrock.anthropic.chat.enabled=true
 ```
