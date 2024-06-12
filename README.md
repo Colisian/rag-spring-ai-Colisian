@@ -67,7 +67,7 @@ Run each of these commands and make sure there are no errors in the output.
 1. Open up a command shell  
 2. Clone the repo https://gitlab.umd.edu/depstei2/rag-spring-ai  
    Go to a directory where you want to download the project and run   
-   `git clone https://gitlab.umd.edu/depstei2/rag-spring-ai.git`
+   `git clone -b skeleton https://gitlab.umd.edu/depstei2/rag-spring-ai.git`
 3. Build the project: `mvn package`
 4. Run the project: `java -jar .\target\rag-spring-ai-0.0.1-SNAPSHOT.jar`
 5. At the prompt, enter `help` and then `exit`
