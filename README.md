@@ -60,8 +60,12 @@ Run each of these commands and make sure there are no errors in the output.
 * `npm --version`
 * `umd_aws_auth -V`
 * `java -version` &rarr; Must be version 21+ (If not please install and set the PATH in your system)
-* `mvn -version`
 * `docker --version` &rarr; Make sure docker desktop is running if you are on Windows.
+* `mvn -version` &rarr; Make sure that the Java version Maven is using matches the Java that is on your command path
+  * **Windows Users** -> to set the correct Java version, please open up Windows Powershell and run (replace with the directory of your installed java JDK):
+    `$env:JAVA_HOME="C:\apps\jdk-21.0.2"` You can check `JAVA_HOME` by running `echo $env:JAVA_HOME` 
+
+
 
 ### Check out the project
 1. Open up a command shell  
@@ -98,19 +102,19 @@ In RAGService.java, add an EmbeddingClient and set up injection via the construc
 Then implement the `getEmbedding` method.   
 **RAGService**:
 ```java
-import org.springframework.ai.embedding.EmbeddingClient;
+import org.springframework.ai.embedding.EmbeddingModel;
 
 @Service
 public class RAGService {
     ...
-    private final EmbeddingClient embeddingClient;
+    private final EmbeddingModel embeddingModel;
     ...
-    public RAGService(EmbeddingClient embeddingClient) {
-        this.embeddingClient = embeddingClient;
+    public RAGService(EmbeddingModel embeddingModel) {
+        this.embeddingModel = embeddingModel;
     }
     
     public String getEmbedding(String text) {
-        return embeddingClient.embed(text).toString();
+        return embeddingModel.embed(text).toString();
     }
     ...
 }
@@ -185,8 +189,8 @@ public class RAGService {
     ...
     private final VectorStore vectorStore;
     ...
-    public RAGService(EmbeddingClient embeddingClient, VectorStore vectorStore) {
-        this.embeddingClient = embeddingClient;
+    public RAGService(EmbeddingModel embeddingModel, VectorStore vectorStore) {
+        this.embeddingModel = embeddingModel;
         this.vectorStore = vectorStore;
     }
     ...
@@ -219,9 +223,9 @@ Grab the spring pdf parser dependencies:
 **pom.xml**:
 ```xml 
 <dependency>
-  <groupId>org.springframework.ai</groupId>
-  <artifactId>spring-ai-pdf-document-reader</artifactId>
-  <version>0.8.1</version>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-pdf-document-reader</artifactId>
+    <version>1.0.0-M1</version>
 </dependency>
 ```
 Lets change the `loadData` to load pdf files.  
@@ -283,14 +287,14 @@ public class RAGService {
     ...
     private final ChatClient chatClient;
     ...
-    public RAGService(EmbeddingClient embeddingClient, VectorStore vectorStore, ChatClient chatClient) {
+    public RAGService(EmbeddingClient embeddingClient, VectorStore vectorStore, ChatClient.Builder chatClientBuilder) {
         this.embeddingClient = embeddingClient;
         this.vectorStore = vectorStore;
-        this.chatClient = chatClient;
+        this.chatClient = chatClientBuilder.build();
     }
     ...
     public String chat(String text) {
-        return chatClient.call(text);
+        return chatClient.prompt(new Prompt(text)).call().content();
     }
     ...
 }
@@ -310,7 +314,7 @@ We need to implement the doRAG() method by getting a list of similar documents, 
         List<Document> similarDocuments = vectorStore.similaritySearch(input);
         Prompt prompt = generatePrompt(input, similarDocuments);
         logger.info("Prompt: \n" + prompt.getContents());
-        return chatClient.call(prompt).getResult().getOutput().getContent();
+        return chatClient.prompt(prompt).call().content();
     }
 
     private Prompt generatePrompt(String input, List<Document> similarDocuments) {
@@ -343,7 +347,7 @@ Let's tweak the similarity search, so it only return results that are similar ba
 **RAGService.java**
 ```java
 ...
-List<Document> similarDocuments = vectorStore.similaritySearch(SearchRequest.query(input)
+List<Document> similarDocuments = vectorStore.similaritySearch(SearchRequest.query(text)
         .withSimilarityThreshold(0.5));
 ...
 ```
