@@ -371,29 +371,7 @@ If we need to clear the DB we can do a simple delete using `JdbcTemplate`
 ...
 ```
 
-### Considerations
-* Different models for LLM and Embeddings?
-* How do we structure data in embeddings?
-  * Windowing
-  * Metadata
-* How do we tweak the prompt to get the best results?
-* Canned responses?
 
-### Team Exercise
-* Break into teams!
-* Pick a dataset to work on, we have some data:
-  * UMD Courses
-  * Health Center
-  * Bursar's Office
-* Create a data loader load embeddings
-* Tweaks 
-  * similarity threshold 
-  * prompts 
-  * Format the response 
-  * Use your imagination!
-* Show off your RAG Service
-
-### Prompt engineering
 
 
 
