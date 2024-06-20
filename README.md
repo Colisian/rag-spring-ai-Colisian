@@ -1,4 +1,7 @@
 # Retrieval-Augmented Generation (RAG)
+
+(This project is originally from a Workshop)
+
 ## Introduction (Written by ChatGPT)
 Retrieval-Augmented Generation (RAG) is a technique that combines the capabilities of a language model, like GPT, with an external knowledge retrieval system to enhance the model's ability to generate responses that are informed by a broader context than the model's internal knowledge. This approach uses a two-step process: first, when a query is received, relevant information is retrieved from a database or a document collection, and second, this information is fed into a language model to generate a response that is contextual and informed by the retrieved data.
 Benefits of RAG over a standalone Language Model like ChatGPT:
