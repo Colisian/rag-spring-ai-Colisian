@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.4</version>
+		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.umd.innovationlab</groupId>
@@ -13,46 +13,49 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>rag-spring-ai</name>
 	<description>RAG Spring Demo</description>
+
 	<properties>
 		<java.version>21</java.version>
-		<spring-ai.version>0.8.1</spring-ai.version>
-		<spring-shell.version>3.2.3</spring-shell.version>
+		<spring-ai.version>1.0.0-M1</spring-ai.version>
+		<spring-shell.version>3.3.0</spring-shell.version>
 	</properties>
+
+
 	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.shell</groupId>
+			<artifactId>spring-shell-starter</artifactId>
+			<version>${spring-shell.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-bedrock-ai-spring-boot-starter</artifactId>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.jline/jline-terminal-jna -->
+		<dependency>
+			<groupId>org.jline</groupId>
+			<artifactId>jline-terminal-jansi</artifactId>
+			<version>3.26.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-pgvector-store-spring-boot-starter</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-pdf-document-reader</artifactId>
-			<version>0.8.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.shell</groupId>
-			<artifactId>spring-shell-starter</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.shell/spring-shell-starter-jna -->
-		<dependency>
-			<groupId>org.springframework.shell</groupId>
-			<artifactId>spring-shell-starter-jna</artifactId>
+			<version>1.0.0-M1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-csv</artifactId>
-			<version>1.10.0</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
